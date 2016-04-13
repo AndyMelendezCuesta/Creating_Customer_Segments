@@ -24,9 +24,12 @@ def dpoints_func(items, kmeans_center):
             b.append(items[count])
             b.append('centroid #{}'.format(counter))
             b.append(kmeans_center[counter-1][count])
+            print b #testing b
             all_bars.append(b)
+            print all_bars #testing all_bars
             counter +=1
         count +=1
+    print all_bars #testing the final output of the function
     return all_bars
 
 dpoints = np.array(all_bars) #for more than two clusters (in two clusters there are two centroids)
