@@ -31,8 +31,9 @@ def dpoints_func(items, kmeans_center):
         count +=1
     print all_bars #testing the final output of the function
     return all_bars
-
-dpoints = np.array(all_bars) #for more than two clusters (in two clusters there are two centroids)
+    
+final_bars = dpoints_func(items, kmeans_center)#calling the dpoint_func and storing the value in final_bars
+dpoint = np.array(final_bars) #dpoints = np.array(all_bars) #for more than two clusters (in two clusters there are two centroids)
 
 #for only two clusters (two centroids)
 dpoints = np.array([['Fresh', '1st centroid', kmeans_center[0][0]], #b[0]
