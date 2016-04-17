@@ -1,6 +1,5 @@
-# import numpy as np #creating grouped bar plot
-# import matplotlib.pyplot as plt #for creating grouped bar plot
-# Import libraries: NumPy, pandas, matplotlib
+#For converting the .ipynb file to .pdf: ipython nbconvert --to pdf customer_segments.ipynb  
+#or                                      jupyter nbconvert --to pdf customer_segments.ipynb
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt # or: from matplotlib import pyplot as plt
@@ -202,11 +201,15 @@ def dpoints_func(items, centers_kmeans, centers_GMM):
     while count < num_items:
         counter = 1 #counter kmeans and GMM centroids 
         while counter <= centroids:
-            b_GMM, b_kmeans = [], []
+            b_GMM = []
             b_GMM.append(items[count])
             b_GMM.append('centroid_GMM#{}'.format(counter))
             b_GMM.append(centers_GMM[counter-1][count])
             all_bars.append(b_GMM) #appending to the array of all bars
+            counter +=1
+        counter = 1 #counter kmeans and GMM centroids 
+        while counter <= centroids:
+            b_kmeans = []
             b_kmeans.append(items[count])
             b_kmeans.append('centroid_kmeans#{}'.format(counter))
             b_kmeans.append(centers_kmeans[counter-1][count])
@@ -217,15 +220,18 @@ def dpoints_func(items, centers_kmeans, centers_GMM):
     #print all_bars #testing the final output of the function
     return all_bars
 
-#### General barplot ####
+#### Barplot Categories ####
 def barplot_categories(clusters):
     #creating a list of categories 
     all_categories = []
-    count = 1 #counts items
-    while count <= clusters:
-        all_categories.append('centroid_GMM#{}'.format(count))
-        all_categories.append('centroid_kmeans#{}'.format(count))
-        count +=1
+    count_GMM =  1 #counts
+    while count_GMM <= clusters:
+        all_categories.append('centroid_GMM#{}'.format(count_GMM))
+        count_GMM +=1
+    count_KMeans = 1 #counts
+    while count_KMeans <= clusters:
+        all_categories.append('centroid_kmeans#{}'.format(count_KMeans))
+        count_KMeans +=1
     return all_categories
     #print "all_categories:"
     #print all_categories
@@ -267,7 +273,7 @@ def barplot(ax, dpoints, items, clusters):
     plt.setp(plt.xticks()[1], rotation=90)
     
     # Add the axis labels
-    ax.set_ylabel("Items sold")
+    ax.set_ylabel("Consumed Items")
     ax.set_xlabel("Item categories")
     
     # Add a legend
@@ -341,7 +347,6 @@ def main():
     # TODO: Find the centroids for KMeans and GMM clusters (included in all_centroids_plot function, check LINE 150)
     all_centroids_plot(pd, clusters, reduced_data)
 
-    #### currently I am only including the centers_kmeans. Later on I will include centers_GMM too
     print "-----------------------------------------------------"
     print "Bar chart of the centroids in the original dimensions" #Bar chart demo with pairs of bars grouped for easy comparison
     
@@ -430,17 +435,17 @@ if __name__ == "__main__":
 #   thresh=None, tol=0.001, verbose=0)
 # centroids of clustersKMeans: 
 #          x-axis        y-axis
-# 0   3653.010534  -4594.917767
-# 1 -24220.711883  -4364.455600
-# 2 -18308.571799  64343.142814
-# 3   5641.180908  14164.355012
+# 0   3496.788187  -5024.808114
+# 1   6166.173051  11736.813841
+# 2 -14526.876149  50607.641373
+# 3 -23984.557618  -4910.936734
 # ---------------
 # cluster means of clustersGMM: 
 #          x-axis        y-axis
-# 0   7183.006796   5390.686560
-# 1   2341.672320  -6738.624678
-# 2 -15207.302181  -3344.305972
-# 3  -9401.659427  34462.106560
+# 0   2339.152042  -6708.930657
+# 1   7174.547193   5469.028765
+# 2 -15372.371943  -3334.433799
+# 3  -9486.974257  34645.204282
 # ------------------------------------------------
 # number of clusters: 3
 # Here is the clustersKMeans (code): KMeans(copy_x=True, init='k-means++', max_iter=300, n_clusters=3, n_init=10,
@@ -452,15 +457,15 @@ if __name__ == "__main__":
 #   thresh=None, tol=0.001, verbose=0)
 # centroids of clustersKMeans: 
 #          x-axis        y-axis
-# 0   4114.953756  -3081.032196
-# 1 -24220.711883  -4364.455600
-# 2   1339.446155  25546.490746
+# 0   1341.311246  25261.391897
+# 1   4165.121782  -3105.158115
+# 2 -23978.865666  -4445.566118
 # ---------------
 # cluster means of clustersGMM: 
 #          x-axis        y-axis
-# 0   6986.106110   4252.253209
-# 1    276.112434  -6508.226007
-# 2 -17878.449511  10108.288244
+# 0   6987.950791   4249.829140
+# 1    269.053187  -6506.886834
+# 2 -17879.186238  10122.792466
 # ------------------------------------------------
 # number of clusters: 2
 # Here is the clustersKMeans (code): KMeans(copy_x=True, init='k-means++', max_iter=300, n_clusters=2, n_init=10,
@@ -485,4 +490,7 @@ if __name__ == "__main__":
 # Finished
 
 # ------------------------------------- END ----------------------------------------
+
+
+
 
